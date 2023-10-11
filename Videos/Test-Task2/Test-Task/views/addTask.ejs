@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Task</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1>Add Task</h1>
+            <form action="/add" method="post" >
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea type="text" class="form-control" name="description" required></textarea><br>
+                </div>
+                <div class="form-group">
+                    <label>Label</label>
+                    <input type="text" class="form-control" name="label" required>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" class="form-control" name="dueDate" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Task Priority</label> <br>
+                    <select id="status" name="priority" class="form-control" >
+                        <label>Task Status</label>
+                        <option value="low" >Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select><br>
+                </div>
+                <div class="form-group">
+                    <label>Task Status</label> <br>
+                    <select id="status" name="status" class="form-control">
+                        <label>Task Status</label>
+                        <option value="pending">pending</option>
+                        <option value="incomplete">Incomplete</option>
+                        <option value="complete">Complete</option>
+                    </select><br>
+                </div>
+                <button type="submit" class="btn btn-primary btn-md">Add</button>
+            </form>
+            <hr>            
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+//for selecting the today date
+const eventDateInput = document.getElementById('eventDate');
+    const currentDate = new Date();
+    const minDate = currentDate.toISOString().split('T')[0]; // Format to "yyyy-mm-dd"
+    eventDateInput.min = minDate;
+</script>

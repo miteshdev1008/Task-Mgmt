@@ -1,0 +1,9 @@
+==>Stck node js mongodb
+==>User email and password(email validation only password bcrypt is used).
+==>Jwt with session(middleware).
+==>Same email not alowd.
+==>User create task/update/delete (and their respective view except delete).
+==>Search on task title and description field (case Insensitive).
+==>Filter on task status (select the status).
+==>Notification with crone jobs (Message on every night).
+==>Entry point ('{base_url}/user/regsterLoad').

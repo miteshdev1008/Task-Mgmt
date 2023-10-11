@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>User DashBoard</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 80px;
+            padding-left: 50px;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Your Dashboard</h1>
+    <button class="btn btn-warning btn-md"><a href="/addTask">Add Task</a></button>
+    <button class="btn btn-danger btn-md"><a href="/user/logout">Logout</a></button> <!-- Add Logout button -->
+    <hr>
+    <div>
+        <form action="/search" method="GET">
+            <div>
+                <input type="text" name="search" placeholder="Search...">
+                <button type="submit">Search</button>
+            </div>
+
+            <div>
+                <label for="statusFilter">Filter by Status:</label>
+                <select id="statusFilter" name="statusFilter">
+                    <option value="">All</option>
+                    <option value="incomplete">Incomplete</option>
+                    <option value="complete">Complete</option>
+                    <option value="pending">pending</option>
+                </select>
+            </div>
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Due date</th>
+                <th>Label</th>
+                <th>Priority</th>
+                <th>Action</th>
+                <th>Notification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tasks.forEach(function(task) { %>
+                <% function formatDueDate(date) { %>
+                    <% const options = { year: 'numeric', month: 'long', day: 'numeric' }; %>
+                    <% return new Date(date).toLocaleDateString(undefined, options); %>
+                <% } %>
+                <tr>
+                    <td><%= task.title %></td>
+                    <td><%= task.description %></td>
+                    <td><%= task.status %></td>
+                    <td><%= formatDueDate(task.dueDate) %></td>
+                    <td><%= task.label %></td> 
+                    <td><%= task.priority %></td> 
+                    <td>
+                        <a href="/edit-task/<%= task.id %>">Edit</a>
+                        <a href="/delete/<%= task.id %>">Delete</a>
+                    </td>
+                    <td> <ul>
+                        <% for (const notification of task.notifications) { %>
+                          <li><%= notification.message %> (<%= notification.timestamp.toTimeString() %>)</li>
+                        <% } %>
+                      </ul></td>
+                    <td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
